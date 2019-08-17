@@ -1,18 +1,16 @@
-﻿using System;
-using System.Globalization;
-using System.Threading.Tasks;
-
-using Microsoft.Practices.Unity;
-
+﻿using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity.Windows;
 using Prism.Windows.AppModel;
-
 using SauceNao10.Core.Services;
+using SauceNao10.Helpers;
 using SauceNao10.Services;
-
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -50,6 +48,7 @@ namespace SauceNao10
 
         protected override async Task OnActivateApplicationAsync(IActivatedEventArgs args)
         {
+            if (args.Kind == ActivationKind.Protocol) await LaunchApplicationAsync(PageTokens.MainPage, (args as ProtocolActivatedEventArgs)?.Uri.AbsolutePath);
             await Task.CompletedTask;
         }
 
@@ -72,6 +71,18 @@ namespace SauceNao10
             var service = base.OnCreateDeviceGestureService();
             service.UseTitleBarBackButton = false;
             return service;
+        }
+
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            var shareOperation = args.ShareOperation;
+            if ((await shareOperation.GetStorageItemsAsync())[0] is StorageFile file)
+            {
+                await file.CopyAndReplaceAsync(await ApplicationData.Current.LocalFolder.CreateFileAsync(file.Name, CreationCollisionOption.GenerateUniqueName));
+                await Windows.System.Launcher.LaunchUriAsync(new Uri("saucenao10:" + file.Name));
+                shareOperation.ReportCompleted();
+            }
+            else shareOperation.ReportError("Failed to read image");
         }
     }
 }

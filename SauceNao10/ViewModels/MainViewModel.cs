@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 
 namespace SauceNao10.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, INavigationAware
     {
         SauceNaoService _sauceNaoService;
         INavigationService _navigationService;
@@ -38,7 +39,7 @@ namespace SauceNao10.ViewModels
         public DelegateCommand BrowseCommand => _browseCommand ?? (_browseCommand = new DelegateCommand(ExecuteBrowseCommand));
         async void ExecuteBrowseCommand()
         {
-            var file = await _getImageStreamAsync();
+            var file = await GetImageStreamAsync();
             if (file.HasValue)
             {
                 IsBusy = true;
@@ -53,7 +54,7 @@ namespace SauceNao10.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
-        async Task<(Stream, string)?> _getImageStreamAsync()
+        async Task<(Stream, string)?> GetImageStreamAsync()
         {
             FileOpenPicker openPicker = new FileOpenPicker
             {
@@ -64,6 +65,24 @@ namespace SauceNao10.ViewModels
             var file = await openPicker.PickSingleFileAsync();
             if (file != null) return (await file.OpenStreamForReadAsync(), file.Name);
             return null;
+        }
+
+        async Task HandleShareAsync(string name)
+        {
+            try
+            {
+                StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(name);
+                IsBusy = true;
+                _navigationService.Navigate(PageTokens.ResultsPage, await Json.StringifyAsync(await _sauceNaoService.GetSauceAsync(await file.OpenStreamForReadAsync(), file.Name)));
+                await file.DeleteAsync();
+            }
+            catch (Exception) { }
+        }
+
+        public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+            base.OnNavigatedTo(e, viewModelState);
+            if (e.Parameter is string name) await HandleShareAsync(name);
         }
     }
 }
