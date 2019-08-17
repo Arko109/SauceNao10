@@ -4,9 +4,12 @@ using Prism.Windows.Navigation;
 using SauceNao10.Core.Helpers;
 using SauceNao10.Core.Models;
 using SauceNao10.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Navigation;
 
 namespace SauceNao10.ViewModels
@@ -16,6 +19,8 @@ namespace SauceNao10.ViewModels
         private readonly IConnectedAnimationService _connectedAnimationService;
         private readonly INavigationService _navigationService;
         private ICommand _goBackCommand;
+        private ICommand _openSourceCommand;
+        private ICommand _copyRawCommand;
 
         private Result _item;
 
@@ -26,6 +31,8 @@ namespace SauceNao10.ViewModels
         }
 
         public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack));
+        public ICommand OpenSourceCommand => _openSourceCommand ?? (_openSourceCommand = new DelegateCommand<string>(OnOpenSource));
+        public ICommand CopyRawCommand => _copyRawCommand ?? (_copyRawCommand = new DelegateCommand<string>(OnCopyRaw));
 
         public ResultsDetailViewModel(IConnectedAnimationService connectedAnimationService, INavigationService navigationService)
         {
@@ -33,6 +40,16 @@ namespace SauceNao10.ViewModels
             _navigationService = navigationService;
         }
 
+        private async void OnCopyRaw(string raw)
+        {
+            DataPackage dataPackage = new DataPackage { RequestedOperation = DataPackageOperation.Copy };
+            dataPackage.SetText(raw);
+            Clipboard.SetContent(dataPackage);
+        }
+        private async void OnOpenSource(string source)
+        {
+            if (Uri.TryCreate(source, UriKind.Absolute, out Uri uri)) await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
         private void OnGoBack()
         {
             if (_navigationService.CanGoBack())

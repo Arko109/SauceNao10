@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Linq;
+using System;
 
 namespace SauceNao10.ViewModels
 {
@@ -20,6 +21,7 @@ namespace SauceNao10.ViewModels
         private ObservableCollection<Result> _source;
         private ICommand _itemClickCommand;
         private ICommand _goBackCommand;
+        private ICommand _openFirstSourceCommand;
 
         public ObservableCollection<Result> Results
         {
@@ -29,6 +31,7 @@ namespace SauceNao10.ViewModels
 
         public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new DelegateCommand<Result?>(OnItemClick));
         public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new DelegateCommand(OnGoBack));
+        public ICommand OpenFirstSourceCommand => _openFirstSourceCommand ?? (_openFirstSourceCommand = new DelegateCommand<string>(OnOpenFirstSource));
 
         public ResultsViewModel(INavigationService navigationServiceInstance, IConnectedAnimationService connectedAnimationService)
         {
@@ -36,6 +39,10 @@ namespace SauceNao10.ViewModels
             _connectedAnimationService = connectedAnimationService;
         }
 
+        public async void OnOpenFirstSource(string source)
+        {
+            if (Uri.TryCreate(source, UriKind.Absolute, out Uri uri)) await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
         private async void OnItemClick(Result? clickedItem)
         {
             _connectedAnimationService.SetListDataItemForNextConnectedAnimation(clickedItem);

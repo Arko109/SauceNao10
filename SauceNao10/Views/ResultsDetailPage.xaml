@@ -11,113 +11,101 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
 
-    <Grid
-        x:Name="ContentArea"
-        animations:Connected.AnchorElement="{x:Bind itemHero}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer>
+        <Grid
+            x:Name="ContentArea"
+            animations:Connected.AnchorElement="{x:Bind itemHero}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
+            <Button
+                x:Name="closeButton"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                BorderThickness="0"
+                Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
+                Command="{x:Bind ViewModel.GoBackCommand}">
+                <SymbolIcon Symbol="Back" />
+            </Button>
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="641" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="propertiesGroup1.(RelativePanel.RightOf)" Value="itemHero" />
-                        <Setter Target="propertiesGroup1.(RelativePanel.Below)" Value="title" />
-                        <Setter Target="propertiesGroup2.(RelativePanel.RightOf)" Value="propertiesGroup1" />
-                        <Setter Target="propertiesGroup2.(RelativePanel.Below)" Value="title" />
-                        <Setter Target="propertiesGroup1.Width" Value="200" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="{StaticResource MediumRightMargin}"
+                x:Name="contentPanel">
 
-        <Button
-            x:Name="closeButton"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            BorderThickness="0"
-            Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
-            Command="{x:Bind ViewModel.GoBackCommand}">
-            <SymbolIcon Symbol="Back" />
-        </Button>
+                <RelativePanel>
+                    <controls:ImageEx
+                        RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
+                        x:Name="itemHero"
+                        animations:Connected.Key="animationKeyResults"
+                        MaxHeight="190" MaxWidth="280" Margin="{StaticResource SmallRightMargin}"
+                        Source="{x:Bind ViewModel.Item.Thumbnail, Mode=OneWay}" IsCacheEnabled="True"/>
 
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="{StaticResource MediumRightMargin}"
-            x:Name="contentPanel">
+                    <TextBlock
+                        x:Name="title"
+                        RelativePanel.AlignTopWithPanel="True"
+                        RelativePanel.RightOf="itemHero"
+                        Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}"
+                        Style="{ThemeResource TitleTextBlockStyle}"
+                        Margin="{StaticResource XXSmallTopMargin}" />
 
-            <RelativePanel>
-                <controls:ImageEx
-                    RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
-                    x:Name="itemHero"
-                    animations:Connected.Key="animationKeyResults"
-                    MaxHeight="190" MaxWidth="280" Margin="{StaticResource SmallRightMargin}"
-                    Source="{x:Bind ViewModel.Item.Thumbnail, Mode=OneWay}" IsCacheEnabled="True"/>
+                    <StackPanel x:Name="propertiesGroup1" RelativePanel.Below="title" RelativePanel.RightOf="itemHero">
+                        <StackPanel x:Name="shipToGroup" Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Text="Similarity" Style="{StaticResource DetailSubTitleStyle}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Similarity, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                        </StackPanel>
 
-                <TextBlock
-                    x:Name="title"
-                    RelativePanel.AlignTopWithPanel="True"
-                    RelativePanel.RightOf="itemHero"
-                    Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}"
-                    Style="{ThemeResource TitleTextBlockStyle}"
-                    Margin="{StaticResource XXSmallTopMargin}" />
-
-                <StackPanel x:Name="propertiesGroup1" RelativePanel.Below="title" RelativePanel.RightOf="itemHero">
-                    <StackPanel x:Name="shipToGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Text="Similarity" Style="{StaticResource DetailSubTitleStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.Item.Similarity, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                        <StackPanel x:Name="orderDateGroup" Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Text="Database" Style="{StaticResource DetailSubTitleStyle}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.DB, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                        </StackPanel>
                     </StackPanel>
 
-                    <StackPanel x:Name="orderDateGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Text="Database" Style="{StaticResource DetailSubTitleStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.Item.DB, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                    <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1" RelativePanel.RightOf="itemHero">
+                        <StackPanel x:Name="statusGroup" Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Text="Author" Style="{StaticResource DetailSubTitleStyle}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Author, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                        </StackPanel>
+
+                        <!--<StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Text="Order total" Style="{StaticResource DetailSubTitleStyle}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.OrderTotal}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                        </StackPanel>-->
                     </StackPanel>
-                </StackPanel>
 
-                <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1" RelativePanel.RightOf="itemHero">
-                    <StackPanel x:Name="statusGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Text="Author" Style="{StaticResource DetailSubTitleStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.Item.Author, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
-                    </StackPanel>
+                </RelativePanel>
 
-                    <!--<StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">
-                        <TextBlock Text="Order total" Style="{StaticResource DetailSubTitleStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.Item.OrderTotal}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
-                    </StackPanel>-->
-                </StackPanel>
+                <ListView
+                    ItemsSource="{x:Bind ViewModel.Item.Sources}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick"
+                    Margin="{StaticResource SmallTopMargin}"/>
 
-            </RelativePanel>
-            <controls:Expander
+                <controls:Expander
                         Header="Raw Data"
                         HorizontalContentAlignment="Stretch"
                         Margin="{StaticResource SmallTopBottomMargin}">
-                <StackPanel>
-                    <TextBlock
-                                Text="{x:Bind ViewModel.Item.RawData.ToString(), Mode=OneWay}"
-                                Margin="{StaticResource SmallLeftRightMargin}"
-                                FontFamily="Consolas"
-                                TextWrapping="WrapWholeWords"
-                                IsTextSelectionEnabled="True"/>
-                    <CommandBar DefaultLabelPosition="Right">
-                        <!--<AppBarButton
-                                    Icon="Copy"
-                                    Label="Copy"
-                                    Command="{x:Bind ViewModel.CopyCommand}" CommandParameter="{x:Bind ViewModel.Result.RawData.ToString()}"/>-->
-                    </CommandBar>
-                </StackPanel>
-            </controls:Expander>
-        </StackPanel>
-    </Grid>
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Bind ViewModel.Item.RawData.ToString(), Mode=OneWay}"
+                            Margin="{StaticResource SmallLeftRightMargin}"
+                            FontFamily="Consolas"
+                            TextWrapping="WrapWholeWords"
+                            IsTextSelectionEnabled="True"/>
+                        <CommandBar DefaultLabelPosition="Right">
+                            <AppBarButton
+                                Icon="Copy"
+                                Label="Copy"
+                                Click="AppBarButton_Click" CommandParameter="{x:Bind ViewModel.Item.RawData.ToString()}"/>
+                        </CommandBar>
+                    </StackPanel>
+                </controls:Expander>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

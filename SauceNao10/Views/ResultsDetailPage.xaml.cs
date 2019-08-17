@@ -1,10 +1,6 @@
-﻿using System;
-
-using SauceNao10.Core.Models;
-using SauceNao10.ViewModels;
+﻿using SauceNao10.ViewModels;
 
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace SauceNao10.Views
 {
@@ -16,5 +12,15 @@ namespace SauceNao10.Views
         }
 
         private ResultsDetailViewModel ViewModel => DataContext as ResultsDetailViewModel;
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ViewModel.OpenSourceCommand.Execute(e.ClickedItem);
+        }
+
+        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.CopyRawCommand.Execute((sender as AppBarButton).CommandParameter);
+        }
     }
 }

@@ -8,7 +8,8 @@
     Style="{StaticResource PageStyle}"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
     <Grid>
         <RelativePanel>
             <!--<TextBlock Text="SauceNao" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,0,0,24" RelativePanel.Above="form" RelativePanel.AlignHorizontalCenterWithPanel="True"/>-->

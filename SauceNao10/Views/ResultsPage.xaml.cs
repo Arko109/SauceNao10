@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using SauceNao10.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -13,6 +12,11 @@ namespace SauceNao10.Views
         public ResultsPage()
         {
             InitializeComponent();
+        }
+
+        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.OpenFirstSourceCommand.Execute((sender as AppBarButton).CommandParameter);
         }
     }
 }

@@ -80,11 +80,10 @@
                                 DefaultLabelPosition="Right"
                                 Background="Transparent"
                                 RelativePanel.LeftOf="similarity" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
-                                <!--<AppBarButton
+                                <AppBarButton
                                     x:Uid="openAppBarBtn"
                                     Icon="Globe" Label="Open"
-                                    Command="{Binding ViewModel.OpenCommand, ElementName=page}" CommandParameter="{x:Bind Result.Sources[0]}"/>-->
-                                <!--TODO use x:Bind-->
+                                    Click="AppBarButton_Click" CommandParameter="{x:Bind Sources[0]}"/>
                             </CommandBar>
                         </RelativePanel>
                     </RelativePanel>
