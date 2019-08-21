@@ -14,9 +14,6 @@ namespace SauceNao10.Views
             InitializeComponent();
         }
 
-        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            ViewModel.OpenFirstSourceCommand.Execute((sender as AppBarButton).CommandParameter);
-        }
+        private void AppBarButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e) => ViewModel.OpenFirstSourceCommand.Execute((sender as AppBarButton).CommandParameter);
     }
 }

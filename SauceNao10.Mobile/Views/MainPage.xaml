@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="SauceNao10.Mobile.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    Style="{StaticResource PageStyle}"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
+    mc:Ignorable="d">
+    <Grid>
+        <RelativePanel>
+            <Image Source="/Assets/banner.gif" Margin="0,0,0,24" RelativePanel.Above="form" RelativePanel.AlignHorizontalCenterWithPanel="True" Stretch="None"/>
+            <StackPanel x:Name="form" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                <AutoSuggestBox PlaceholderText="Image URL" QueryIcon="Find" Width="300" HorizontalAlignment="Center" Margin="0,0,0,12" QuerySubmitted="AutoSuggestBox_QuerySubmitted"/>
+                <TextBlock Text="OR" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                <Button Content="Browse" HorizontalAlignment="Center" Command="{x:Bind ViewModel.BrowseCommand}"/>
+            </StackPanel>
+        </RelativePanel>
+        <RelativePanel x:Name="LoadingControl" Visibility="Collapsed">
+            <Rectangle
+                Fill="Black" Opacity="0.8"
+                RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/>
+            <StackPanel Padding="12" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                <ProgressRing IsActive="True" Margin="0,0,12,0" Width="50" Height="50"/>
+                <TextBlock Text="Loading" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            </StackPanel>
+        </RelativePanel>
+    </Grid>
+</Page>
