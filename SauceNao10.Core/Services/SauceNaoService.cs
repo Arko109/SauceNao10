@@ -74,7 +74,7 @@ namespace SauceNao10.Core.Services
 
         string _getAuthor(JToken data)
         {
-            var rn = data["member_name"] ?? data["author_name"] ?? data["creator"] ?? data["pawoo_user_display_name"];
+            var rn = data["member_name"] ?? data["author_name"] ?? data["creator"] ?? data["pawoo_user_display_name"] ?? data["author"];
             if (rn is JArray arr)
             {
                 rn = arr.First;
@@ -82,6 +82,6 @@ namespace SauceNao10.Core.Services
             return rn?.ToString();
         }
 
-        string _getTitle(JToken data) => data["title"]?.ToString() ?? data["eng_name"]?.ToString() ?? data["jp_name"]?.ToString();
+        string _getTitle(JToken data) => (data["title"] ?? data["eng_name"] ?? data["jp_name"] ?? data["material"] ?? data["source"])?.ToString();
     }
 }
