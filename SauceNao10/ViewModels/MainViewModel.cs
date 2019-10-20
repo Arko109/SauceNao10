@@ -31,7 +31,7 @@ namespace SauceNao10.ViewModels
             if (Uri.TryCreate(query, UriKind.Absolute, out Uri uri))
             {
                 IsBusy = true;
-                _navigationService.Navigate(PageTokens.ResultsPage, await Json.StringifyAsync((await _sauceNaoService.GetSauceAsync(uri)).Where(result => result.Similarity > 80.0).OrderByDescending(result => result.Similarity)));
+                _navigationService.Navigate(PageTokens.ResultsPage, await Json.StringifyAsync(await _sauceNaoService.GetSauceAsync(uri)));
             }
         }
 
