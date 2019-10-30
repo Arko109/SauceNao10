@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 
 namespace SauceNao10.ViewModels
 {
@@ -76,7 +77,10 @@ namespace SauceNao10.ViewModels
                 _navigationService.Navigate(PageTokens.ResultsPage, await Json.StringifyAsync(await _sauceNaoService.GetSauceAsync(await file.OpenStreamForReadAsync(), file.Name)));
                 await file.DeleteAsync();
             }
-            catch (Exception) { }
+            catch (Exception e)
+            {
+                await new MessageDialog(e.Message, "Sharing falied").ShowAsync();
+            }
         }
 
         public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)

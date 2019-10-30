@@ -13,8 +13,6 @@
 
     <ScrollViewer>
         <StackPanel
-            Grid.Row="1"
-            Grid.Column="1"
             Margin="{StaticResource SmallLeftRightMargin}"
             x:Name="contentPanel">
 
@@ -29,7 +27,7 @@
                 <TextBlock
                     x:Name="title"
                     RelativePanel.Below="itemHero"
-                    Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}"
+                    Text="{x:Bind ViewModel.Item.Title, Mode=OneWay, TargetNullValue=Untitled}"
                     Style="{ThemeResource TitleTextBlockStyle}"
                     Margin="{StaticResource XXSmallTopMargin}" />
 
@@ -48,7 +46,7 @@
                 <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1">
                     <StackPanel x:Name="statusGroup" Margin="{StaticResource SmallTopMargin}">
                         <TextBlock Text="Author"/>
-                        <TextBlock Text="{x:Bind ViewModel.Item.Author, Mode=OneWay}"/>
+                        <TextBlock Text="{x:Bind ViewModel.Item.Author, Mode=OneWay, TargetNullValue=Unkown}"/>
                     </StackPanel>
 
                     <!--<StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">

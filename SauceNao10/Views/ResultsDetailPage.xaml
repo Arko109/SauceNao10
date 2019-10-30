@@ -12,32 +12,15 @@
     mc:Ignorable="d">
 
     <ScrollViewer>
-        <Grid
+        <RelativePanel
             x:Name="ContentArea"
             animations:Connected.AnchorElement="{x:Bind itemHero}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <Button
-                x:Name="closeButton"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                BorderThickness="0"
-                Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
-                Command="{x:Bind ViewModel.GoBackCommand}">
-                <SymbolIcon Symbol="Back" />
-            </Button>
+            <Button x:Name="backBtn" Style="{ThemeResource NavigationBackButtonNormalStyle}" Command="{x:Bind ViewModel.GoBackCommand}"/>
 
             <StackPanel
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="{StaticResource MediumRightMargin}"
+                RelativePanel.Below="backBtn" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
+                Margin="{StaticResource MediumLeftRightMargin}"
                 x:Name="contentPanel">
 
                 <RelativePanel>
@@ -52,7 +35,7 @@
                         x:Name="title"
                         RelativePanel.AlignTopWithPanel="True"
                         RelativePanel.RightOf="itemHero"
-                        Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}"
+                        Text="{x:Bind ViewModel.Item.Title, Mode=OneWay, TargetNullValue=Untitled}"
                         Style="{ThemeResource TitleTextBlockStyle}"
                         Margin="{StaticResource XXSmallTopMargin}" />
 
@@ -71,7 +54,7 @@
                     <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1" RelativePanel.RightOf="itemHero">
                         <StackPanel x:Name="statusGroup" Margin="{StaticResource SmallTopMargin}">
                             <TextBlock Text="Author" Style="{StaticResource DetailSubTitleStyle}" />
-                            <TextBlock Text="{x:Bind ViewModel.Item.Author, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Author, Mode=OneWay, TargetNullValue=Unkown}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                         </StackPanel>
 
                         <!--<StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">
@@ -106,6 +89,6 @@
                     </StackPanel>
                 </controls:Expander>
             </StackPanel>
-        </Grid>
+        </RelativePanel>
     </ScrollViewer>
 </Page>
