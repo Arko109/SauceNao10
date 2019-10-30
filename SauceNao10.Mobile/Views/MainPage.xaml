@@ -18,9 +18,7 @@
             </StackPanel>
         </RelativePanel>
         <RelativePanel x:Name="LoadingControl" Visibility="Collapsed">
-            <Rectangle
-                Fill="Black" Opacity="0.8"
-                RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/>
+            <Rectangle Fill="Black" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True"/>
             <StackPanel Padding="12" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
                 <ProgressRing IsActive="True" Margin="0,0,12,0" Width="50" Height="50"/>
                 <TextBlock Text="Loading" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{ThemeResource SubtitleTextBlockStyle}"/>

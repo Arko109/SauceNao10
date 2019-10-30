@@ -23,6 +23,14 @@ namespace SauceNao10.Mobile.Views
             //theme.DefaultNavigationTransitionInfo = info;
             //collection.Add(theme);
             //this.Transitions = collection;
+
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("IsBusy"))
+                LoadingControl.Visibility = ViewModel.IsBusy ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args) => ViewModel.QueryCommand.Execute(args.QueryText);
