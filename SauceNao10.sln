@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SauceNao10", "SauceNao10\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SauceNao10.Core", "SauceNao10.Core\SauceNao10.Core.csproj", "{EB4FDEDE-3C43-4C4A-8D9D-794DCCF6E824}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SauceNao10.Core.Test", "SauceNao10.Core.Test\SauceNao10.Core.Test.csproj", "{F7D76394-5EA4-42D1-9AD7-554955D7517D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,26 @@ Global
 		{EB4FDEDE-3C43-4C4A-8D9D-794DCCF6E824}.Release|x64.Build.0 = Release|Any CPU
 		{EB4FDEDE-3C43-4C4A-8D9D-794DCCF6E824}.Release|x86.ActiveCfg = Release|Any CPU
 		{EB4FDEDE-3C43-4C4A-8D9D-794DCCF6E824}.Release|x86.Build.0 = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|x64.Build.0 = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Debug|x86.Build.0 = Debug|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|ARM.Build.0 = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|ARM64.Build.0 = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|x64.ActiveCfg = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|x64.Build.0 = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7D76394-5EA4-42D1-9AD7-554955D7517D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
