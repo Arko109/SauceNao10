@@ -34,7 +34,7 @@ namespace SauceNao10.Core.Services
                 api_key = ApiKey ?? "",
                 url = uri.AbsoluteUri,
                 numres = resultsCount
-            }).GetAsync()).Content.ReadAsStringAsync())["results"]);
+            }).GetAsync()).Content.ReadAsStringAsync()));
         }
 
         /// <summary>Gets the sauce for the given image file stream asynchronously.</summary>
@@ -49,11 +49,16 @@ namespace SauceNao10.Core.Services
                 db = "999",
                 output_type = "2",
                 api_key = ApiKey ?? ""
-            }).AddFile("file", stream, name))).Content.ReadAsStringAsync())["results"]);
+            }).AddFile("file", stream, name))).Content.ReadAsStringAsync()));
         }
 
         IList<Result> _parseResults(JToken results)
         {
+            if (int.TryParse(results["header"]["status"].ToString(), out int i) && i != 0)
+                throw new Exception(results["header"]["message"].ToString());
+            else
+                results = results["results"];
+
             var rn = new List<Result>();
             foreach (var result in results)
             {

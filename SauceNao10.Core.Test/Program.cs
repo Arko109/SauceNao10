@@ -8,12 +8,23 @@ namespace SauceNao10.Core.Test
         static void Main(string[] args)
         {
             var service = new SauceNaoService();
-            var results = service.GetSauceAsync(new Uri("https://pbs.twimg.com/media/EJFh7svVUAIUiDQ.jpg:large"));
-            foreach (var result in results.Result)
+            try
             {
-                Console.WriteLine(result);
+                var results = service.GetSauceAsync(new Uri("https://bing.com")).Result;
+                //var results = service.GetSauceAsync(new Uri("https://pbs.twimg.com/media/EJFh7svVUAIUiDQ.jpg:large")).Result;
+                foreach (var result in results)
+                {
+                    Console.WriteLine(result);
+                }
             }
-            Console.ReadLine();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                Console.ReadLine();
+            }
         }
     }
 }
